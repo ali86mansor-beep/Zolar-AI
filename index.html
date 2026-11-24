@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -16,87 +17,145 @@ header {
   background: #19192b;
   padding: 20px;
   text-align: center;
-  border-bottom: 1px solid #393952;
+  border-bottom: 1px solid #393954;
 }
-header h1 { color: #a78bfa; margin: 0; }
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+  color: #a78bfa;
+}
 header p { color: #aaa; }
-.container { max-width: 700px; margin: auto; padding: 20px; }
-.welcome { text-align: center; margin-top: 55px; }
-.welcome h2 { color: #a78bfa; }
-#chat { margin-top: 25px; padding-bottom: 100px; }
+.container {
+  max-width: 750px;
+  margin: auto;
+  padding: 18px;
+}
+.welcome {
+  text-align: center;
+  margin-top: 35px;
+}
+.welcome h2 { color: #c4b5fd; }
+.welcome p { color: #aaa; line-height: 1.8; }
+.chat {
+  margin-top: 25px;
+  padding-bottom: 100px;
+}
 .message {
   padding: 14px;
+  border-radius: 15px;
   margin: 12px 0;
-  border-radius: 14px;
-  line-height: 1.7;
-  white-space: pre-wrap;
+  line-height: 1.8;
+  max-width: 90%;
+  overflow-wrap: anywhere;
 }
-.user { background: #5141a8; margin-right: 35px; }
-.bot { background: #25253b; margin-left: 35px; }
+.bot {
+  background: #24243b;
+  border: 1px solid #51447a;
+  margin-left: auto;
+}
+.user {
+  background: #6741c7;
+  margin-right: auto;
+}
 .input-area {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 15px;
   background: #19192b;
+  padding: 15px;
   display: flex;
   gap: 10px;
+  border-top: 1px solid #393954;
 }
 input {
   flex: 1;
+  min-width: 0;
   padding: 15px;
-  border: 1px solid #555;
   border-radius: 12px;
+  border: 1px solid #51447a;
   background: #25253b;
   color: white;
   outline: none;
+  font-size: 16px;
 }
 button {
-  border: none;
-  padding: 14px 20px;
-  border-radius: 12px;
-  background: #8b5cf6;
+  background: #8959e8;
   color: white;
-  font-weight: bold;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.footer {
+  text-align: center;
+  color: #777;
+  font-size: 12px;
+  padding: 15px;
 }
 </style>
 </head>
 <body>
 <header>
-<h1>✦ Zolar AI</h1>
-<p>مساعدك الذكي في كل وقت</p>
+  <div class="logo">✦ Zolar AI</div>
+  <p>مساعدك الذكي في كل وقت</p>
 </header>
+
 <div class="container">
-<div class="welcome" id="welcome">
-<h2>أهلاً بك في Zolar AI</h2>
-<p>كيف يمكنني مساعدتك اليوم؟</p>
+  <div class="welcome">
+    <h2>مرحباً بك في Zolar AI 🚀</h2>
+    <p>أنا مساعدك الذكي الجديد. اسألني أي سؤال وسأحاول مساعدتك.</p>
+  </div>
+
+  <div class="chat" id="chat">
+    <div class="message bot">
+      أهلاً بك! 👋 أنا Zolar AI، كيف يمكنني مساعدتك اليوم؟
+    </div>
+  </div>
 </div>
-<div id="chat"></div>
-</div>
+
 <div class="input-area">
-<input id="question" placeholder="اكتب سؤالك هنا..." onkeydown="if(event.key==='Enter') sendMessage()">
-<button onclick="sendMessage()">إرسال</button>
+  <input id="userInput" type="text"
+    placeholder="اكتب رسالتك هنا..." autocomplete="off">
+  <button onclick="sendMessage()">إرسال</button>
 </div>
+
 <script>
 function sendMessage() {
-const input = document.getElementById("question");
-const chat = document.getElementById("chat");
-const welcome = document.getElementById("welcome");
-const question = input.value.trim();
-if (!question) return;
-welcome.style.display = "none";
-const userMessage = document.createElement("div");
-userMessage.className = "message user";
-userMessage.textContent = question;
-chat.appendChild(userMessage);
-const botMessage = document.createElement("div");
-botMessage.className = "message bot";
-botMessage.textContent = "مرحباً بك في Zolar AI! هذه نسخة تجريبية من الواجهة. لربط الذكاء الاصطناعي الحقيقي نحتاج إلى إعداد API.";
-chat.appendChild(botMessage);
-input.value = "";
-window.scrollTo(0, document.body.scrollHeight);
+  const input = document.getElementById("userInput");
+  const chat = document.getElementById("chat");
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  const userMessage = document.createElement("div");
+  userMessage.className = "message user";
+  userMessage.textContent = text;
+  chat.appendChild(userMessage);
+
+  input.value = "";
+
+  const botMessage = document.createElement("div");
+  botMessage.className = "message bot";
+  botMessage.textContent =
+    "وصلني سؤالك! ❤️ أنا نسخة تجريبية. لربطي بذكاء اصطناعي حقيقي نحتاج إضافة API.";
+  chat.appendChild(botMessage);
+
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: "smooth"
+  });
 }
+
+document.getElementById("userInput")
+.addEventListener("keydown", function(event) {
+  if (event.key === "Enter") sendMessage();
+});
 </script>
+
+<div class="footer">
+© 2026 Zolar AI - جميع الحقوق محفوظة
+</div>
 </body>
 </html>
